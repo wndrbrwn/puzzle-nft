@@ -61,7 +61,7 @@ const Home: FC = () => {
         alignItems="center"
         fontSize={[24, 24, 48]}
       >
-        <Text>⛔️ 바다가 좋아요!!! ⛔️</Text>
+        <Text>⛔️ 바다가 위험해! 구해줘! ⛔️</Text>
         <Button
           variant="outline"
           colorScheme="blue"
