@@ -4,13 +4,33 @@ import { FC, useEffect, useState } from "react";
 
 interface PuzzleCardProps {
   index: number;
-  balance: number;
+  isMinted: boolean;
 }
 
-const PuzzleCard: FC<PuzzleCardProps> = ({ index, balance }) => {
+const PuzzleCard: FC<PuzzleCardProps> = ({ index, isMinted }) => {
+  const [nftMetadata, setMetadata] = useState<NftMetadata>();
+
+  const getNftMetadata = async () => {
+    try {
+      const response = await axios.get<NftMetadata>(
+        `${import.meta.env.VITE_METADATA_URI}${index + 1}.json`
+      );
+
+      setMetadata(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getNftMetadata();
+  }, []);
+
+  useEffect(() => console.log(nftMetadata), [nftMetadata]);
+
   return (
     <GridItem pos="relative" w={[20, 20, 40]} h={[20, 20, 40]}>
-      {!balance && (
+      {!isMinted && (
         <Box
           pos="absolute"
           top={0}
